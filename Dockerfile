@@ -1,13 +1,18 @@
+###########################################
+# General Dockerfile for Tucano detectors
+# TucanoRobotics 2020
+###########################################
+
 FROM python:3.7
 
-RUN apt-get update && \
-    apt-get install -y gcc make apt-transport-https ca-certificates build-essential
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-WORKDIR  /opt/cerebro
+RUN apt-get update && apt-get upgrade
 
-COPY requirements.txt .
+WORKDIR /opt/detector
+
+COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /opt/cerebro
-
-CMD ["python3", "/opt/cerebro/src/mask_detector_api.py"]
+CMD ["python", "./src/api.py"]
