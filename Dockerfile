@@ -4,6 +4,7 @@
 ###########################################
 
 FROM python:3.7
+# FROM fbcotter/docker-tensorflow-opencv:latest
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1

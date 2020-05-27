@@ -21,7 +21,8 @@ def disconnect():
     print('disconnected from server')
 
 
-sio.connect('ws://localhost:5000')
+# sio.connect('ws://localhost:8000/', socketio_path='/masks/socket.io')
+sio.connect('wss://ai.tucanoar.com/', socketio_path='/masks/socket.io')
 
 with open("./ym_poor.jpg", "rb") as image_file:
     encoded_string = base64.b64encode(image_file.read())

@@ -9,7 +9,7 @@ from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, send
 from werkzeug.utils import secure_filename
 
-from mask_detector import *
+from mask_detector import detect
 
 
 app = Flask(__name__)
@@ -80,7 +80,7 @@ def upload_file():
         file_1.save(os.path.join("./", filename))
         img = cv2.imread(f"./{filename}")
 
-        detections = do_detect(img)
+        detections = detect(img)
         print(detections)
         resp = jsonify({'message': detections})
         resp.status_code = 200
@@ -104,10 +104,11 @@ def frame_from_b64image(b64image):
 @socketio.on('message')
 def handle_message(b64image):
     frame = frame_from_b64image(b64image)
-    detections = do_detect(frame)
+    detections = detect(frame)
     send(detections)
 
 
 if __name__ == "__main__":
     # app.run(host='0.0.0.0')
     socketio.run(app, host='0.0.0.0')
+    print("Ready for action...")
