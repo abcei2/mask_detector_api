@@ -1,13 +1,20 @@
 import os
+import cv2
 import json
+import base64
+
+import numpy as np
 
 from flask import Flask, request, jsonify
+from flask_socketio import SocketIO, send
 from werkzeug.utils import secure_filename
 
 from mask_detector import *
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret_key_786acdaf'
+socketio = SocketIO(app)
 
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
 
@@ -89,5 +96,18 @@ def upload_file():
         return resp
 
 
+def frame_from_b64image(b64image):
+    nparr = np.frombuffer(base64.b64decode(b64image), np.uint8)
+    return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+
+@socketio.on('message')
+def handle_message(b64image):
+    frame = frame_from_b64image(b64image)
+    detections = do_detect(frame)
+    send(detections)
+
+
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    # app.run(host='0.0.0.0')
+    socketio.run(app)

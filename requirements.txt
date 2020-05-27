@@ -1,5 +1,6 @@
 Werkzeug==0.16.0
 Flask==1.1.1
+Flask-SocketIO==4.3.0
 opencv_python==4.2.0.32
 requests==2.23.0
 numpy==1.18.4
