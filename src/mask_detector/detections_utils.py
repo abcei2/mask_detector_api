@@ -12,4 +12,4 @@ def detect(model, img):
     face = np.expand_dims(face, axis=0)
 
     mask, withoutMask = model.predict(face)[0]
-    return {"with_mask": mask > withoutMask}
+    return {"with_mask": bool(mask > withoutMask)}
