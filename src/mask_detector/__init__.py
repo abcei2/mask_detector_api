@@ -48,8 +48,8 @@ def extract_face(img):
             (endX, endY) = (min(w - 1, endX), min(h - 1, endY))
 
             face_bbox={
-                'upper_left':[startX, startY],
-                'down_right':[endX, endY]
+                'upper_left':[int(startX), int(startY)],
+                'down_right':[int(endX), int(endY)]
             }
             
             face_image= img[startY:endY, startX:endX]
