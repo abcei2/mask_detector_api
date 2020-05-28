@@ -40,11 +40,15 @@ def extract_face(img):
 
 def detect(img):
     face, box = extract_face(img)
-    face = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    face = cv2.resize(face, (224, 224))
-    face = img_to_array(face)
-    face = preprocess_input(face)
-    face = np.expand_dims(face, axis=0)
 
-    mask, withoutMask = mask_model.predict(face)[0]
-    return {'with_mask': bool(mask > withoutMask), 'box': box}
+    if face is not None:
+        face = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        face = cv2.resize(face, (224, 224))
+        face = img_to_array(face)
+        face = preprocess_input(face)
+        face = np.expand_dims(face, axis=0)
+
+        mask, withoutMask = mask_model.predict(face)[0]
+        return {'with_mask': bool(mask > withoutMask), 'box': box}
+    else:
+        return {'with_mask': None, 'box': None}
