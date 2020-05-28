@@ -14,6 +14,7 @@ RUN apt-get update && apt-get -y upgrade
 WORKDIR /opt/detector
 
 COPY . .
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 CMD ["python", "./src/api.py"]
