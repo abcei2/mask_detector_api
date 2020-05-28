@@ -31,14 +31,15 @@ def extract_face(img):
     ]
 
     face = faces[0] if len(faces) > 0 else None
-    return face and img[
-        face['upper_left'][0]:face['down_right'][0],
-        face['upper_left'][1]:face['down_right'][1]
-    ]
+
+    return (img[
+        face['upper_left'][1]:face['down_right'][1],
+        face['upper_left'][0]:face['down_right'][0]
+    ], face) if face else (None, None)
 
 
 def detect(img):
-    face = extract_face(img)
+    face, box = extract_face(img)
     face = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     face = cv2.resize(face, (224, 224))
     face = img_to_array(face)
@@ -46,4 +47,4 @@ def detect(img):
     face = np.expand_dims(face, axis=0)
 
     mask, withoutMask = mask_model.predict(face)[0]
-    return {"with_mask": bool(mask > withoutMask)}
+    return {'with_mask': bool(mask > withoutMask), 'box': box}

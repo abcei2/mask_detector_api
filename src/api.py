@@ -1,6 +1,7 @@
 import os
 import cv2
 import json
+import time
 import base64
 
 import numpy as np
@@ -103,9 +104,11 @@ def frame_from_b64image(b64image):
 
 @socketio.on('message')
 def handle_message(b64image):
+    start = time.time()
     frame = frame_from_b64image(b64image)
     detections = detect(frame)
     send(detections)
+    print(f"Elapsed ({len(b64image)}): {time.time() - start}")
 
 
 if __name__ == "__main__":
