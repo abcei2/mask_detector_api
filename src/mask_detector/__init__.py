@@ -72,7 +72,7 @@ def detect(img):
         face = np.expand_dims(face, axis=0)
 
         mask, withoutMask = mask_model.predict(face)[0]
-        if mask>withoutMask and mask>0.8:
+        if mask>withoutMask and mask>0.6:
             return {'with_mask': True, 'box': box}
         else:
             return {'with_mask': False, 'box': box}
