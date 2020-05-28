@@ -6,5 +6,3 @@ opencv_python==4.2.0.32
 requests==2.23.0
 numpy==1.18.4
 tensorflow==2.2.0
-insightface==0.1.5
-mxnet==1.6.0
