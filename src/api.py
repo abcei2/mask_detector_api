@@ -14,7 +14,7 @@ from mask_detector import detect
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key_786acdaf'
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
 
