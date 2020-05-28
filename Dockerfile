@@ -11,10 +11,12 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && apt-get -y upgrade
 
-WORKDIR /opt/detector
+ADD requirements.txt /opt/detector/
 
-COPY . .
+WORKDIR /opt/detector
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
+
+ADD . /opt/detector
 
 CMD ["python", "./src/api.py"]
