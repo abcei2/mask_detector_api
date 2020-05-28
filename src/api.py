@@ -109,6 +109,6 @@ def handle_message(b64image):
 
 
 if __name__ == "__main__":
+    print("Ready for action...")
     # app.run(host='0.0.0.0')
     socketio.run(app, host='0.0.0.0')
-    print("Ready for action...")
