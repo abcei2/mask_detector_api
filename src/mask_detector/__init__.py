@@ -54,7 +54,9 @@ def extract_face(img):
             
             face_image= img[startY:endY, startX:endX]
 
-        return (face_image, face_bbox)
+            return (face_image, face_bbox)
+        else:
+            return (None,None)
     else:
         return (None,None)
 
