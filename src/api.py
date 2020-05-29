@@ -107,6 +107,7 @@ def handle_message(b64image):
     start = time.time()
     frame = frame_from_b64image(b64image)
     detections = detect(frame)
+    print(detections)
     send(detections)
     print(f"Elapsed ({len(b64image)}): {time.time() - start}")
 

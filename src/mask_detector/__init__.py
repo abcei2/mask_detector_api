@@ -48,8 +48,8 @@ def extract_face(img):
             (endX, endY) = (min(w - 1, endX), min(h - 1, endY))
 
             face_bbox={
-                'upper_left':[startX, startY],
-                'down_right':[endX, endY]
+                'upper_left':[int(startX), int(startY)],
+                'down_right':[int(endX), int(endY)]
             }
             
             face_image= img[startY:endY, startX:endX]
@@ -72,7 +72,7 @@ def detect(img):
         face = np.expand_dims(face, axis=0)
 
         mask, withoutMask = mask_model.predict(face)[0]
-        if mask>withoutMask and mask>0.8:
+        if mask>withoutMask and mask>0.9:
             return {'with_mask': True, 'box': box}
         else:
             return {'with_mask': False, 'box': box}
