@@ -60,7 +60,27 @@ def extract_face(img):
     else:
         return (None,None)
 
+def detect_faces(img):
+    face, box = extract_face(img)
 
+    if face is not None:
+        detections={
+            "image_width":img.shape[1],
+            "image_height":img.shape[0],
+            "num_of_detections":len(box),
+            "faces_detected":box
+        }
+        return detections
+    else:
+
+        detections={
+            "image_width":img.shape[1],
+            "image_height":img.shape[0],
+            "num_of_detections":0,
+            "faces_detected":None
+        }
+        return detections
+        
 def detect(img):
     face, box = extract_face(img)
 
@@ -72,11 +92,7 @@ def detect(img):
         face = np.expand_dims(face, axis=0)
 
         mask, withoutMask = mask_model.predict(face)[0]
-<<<<<<< HEAD
         if mask>withoutMask and mask>0.9:
-=======
-        if mask>withoutMask and mask>0.6:
->>>>>>> 67079dd5214c4e264c4ea5820d6545e1f8974e7c
             return {'with_mask': True, 'box': box}
         else:
             return {'with_mask': False, 'box': box}
